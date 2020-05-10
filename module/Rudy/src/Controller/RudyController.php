@@ -1,0 +1,50 @@
+<?php
+namespace Rudy\Controller;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+
+class RudyController extends AbstractActionController
+{
+	public function rudyAction(){
+		return new ViewModel();
+	}
+
+	public function findingAction(){
+		$q_array = [3,5,9,15,'X','Y','Z'];
+		$a_array = [];
+		foreach($q_array as $q){
+			if(ctype_alpha($q)){
+				array_push($a_array, $q);
+			}
+		}
+		//exit();
+		return new ViewModel(['answer' => $a_array]);
+	}
+
+	public function placesearchAction(){
+
+		return new ViewModel();
+	}
+
+	public function placeapiajaxAction(){
+
+		// $jsonData = 'success';
+		// $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Bangsue&key=AIzaSyDOjUbGoZnfLTlOb8jMT5TbObwnKZl6Gdc';
+
+		$path = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Bangsue&key=AIzaSyC_zWOAQl95YBLVfHdxcZtPelVxGqrPF0o';
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_URL,$path);
+	    curl_setopt($ch, CURLOPT_FAILONERROR,1);
+	    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+	    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+	    $retValue = curl_exec($ch);          
+	    curl_close($ch);
+    //return $retValue;
+
+		echo json_encode($retValue,true);
+     	exit();
+	}
+}
+?>

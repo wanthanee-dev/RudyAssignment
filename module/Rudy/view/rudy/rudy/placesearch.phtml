@@ -1,0 +1,32 @@
+
+
+<h3>All restaurants in Bangsue</h3>
+<div id="restaurants"></div>
+
+
+
+<script>
+$(document).ready(function(){  
+      $.ajax({ 
+         url:        'ajax', 
+         type:       'POST',  
+         dataType:   'json', 
+         async:      true, 
+         
+         success: function(data, status) { 
+            var text = '';
+            var restaurants  = jQuery.parseJSON(data);
+            console.log(restaurants);
+            $.each( restaurants.results, function( key, value ) {
+                  text += '<h4 style="color:green;">'+value.name+'</h4>';
+                  text += '<p>'+value.formatted_address+'</p>'
+            });
+            $('#restaurants').append(text);
+            //console.log(data.getDetail);
+         }, 
+         error : function(xhr, textStatus, errorThrown) { 
+            alert('error');
+         } 
+      }); 
+}); 
+</script> 
