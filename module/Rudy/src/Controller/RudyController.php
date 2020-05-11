@@ -11,15 +11,20 @@ class RudyController extends AbstractActionController
 	}
 
 	public function findingAction(){
-		$q_array = [3,5,9,15,'X','Y','Z'];
-		$a_array = [];
-		foreach($q_array as $q){
-			if(ctype_alpha($q)){
-				array_push($a_array, $q);
-			}
+		//5-3 = 2
+		//9-5 = 4
+		//15-9 = 6
+		//x-15 = 8
+		//y-x = 10 
+		//z-y = 12
+		$res = 3;
+		$arrayres = [$res];
+		for($i = 2;$i <=12 ;$i+=2){
+			$res = $res+$i;
+			array_push($arrayres, $res);
 		}
-		//exit();
-		return new ViewModel(['answer' => $a_array]);
+
+		return new ViewModel(['answer' => $arrayres]);
 	}
 
 	public function placesearchAction(){
